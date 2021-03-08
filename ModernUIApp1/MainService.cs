@@ -77,21 +77,23 @@ namespace ModernUIApp1
         {
             List<Bitmap> bitmaps = new List<Bitmap>();
 
-            IntPtr hwnd1 = FindWindow("Notepad", "あ.txt - メモ帳");
-            if (hwnd1.Equals(IntPtr.Zero))
+            IntPtr tmpPtr = FindWindow("Notepad", null);
+
+            if (tmpPtr.Equals(IntPtr.Zero))
             {
                 MessageBox.Show("Target application is not open", "Error");
                 return;
             }
 
-            SetActiveWindow(hwnd1);
+            IntPtr intPtr = FindWindowEx(tmpPtr, IntPtr.Zero,"Edit", null);
 
-            IntPtr intPtr = FindWindowEx(hwnd1, IntPtr.Zero, "Edit", null);
             if (intPtr.Equals(IntPtr.Zero))
             {
                 MessageBox.Show("Target application is not open", "Error");
                 return;
             }
+
+            SetActiveWindow(tmpPtr);
 
             Point defaultPnt = default;
 
